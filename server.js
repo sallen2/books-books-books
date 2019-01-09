@@ -10,9 +10,9 @@ app.use(express.json())
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('books/build'))
-} else {
-    app.use(routes)
 }
+
+app.use(routes)
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/googlebooks')
 
