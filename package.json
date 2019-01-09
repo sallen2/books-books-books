@@ -1,16 +1,26 @@
 {
   "name": "googlebooks",
   "version": "1.0.0",
-  "description": "",
+  "description": "React app that queries Google Books.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon --ignore 'books/*'\" \"npm run client\"",
+    "client": "cd books && npm run start",
+    "seed": "node scripts/seedDB.js",
+    "install": "cd books && npm install",
+    "build": "cd books && npm run build",
+    "heroku-postbuild": "npm run build"
   },
   "author": "Stephan Allen",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
-    "mongoose": "^5.4.2"
+    "mongoose": "^5.4.2",
+    "if-env": "^1.0.4"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0"
   }
 }
